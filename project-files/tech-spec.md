@@ -4547,7 +4547,7 @@ chidi-backend/
 │   │   │   ├── routers/             # Route aggregation
 │   │   │   └── dependencies.py      # Shared dependencies
 │   │   ├── Dockerfile
-│   │   └── requirements.txt
+│   │   └── pyproject.toml
 │   │
 │   ├── chat/
 │   │   ├── app/
@@ -4574,7 +4574,7 @@ chidi-backend/
 │   │   │       ├── openai.py
 │   │   │       └── anthropic.py
 │   │   ├── Dockerfile
-│   │   └── requirements.txt
+│   │   └── pyproject.toml
 │   │
 │   ├── inventory/
 │   │   ├── app/
