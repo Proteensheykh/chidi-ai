@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'Chidi App',
-  description: 'A modern full-stack application built with Next.js and FastAPI',
+  title: 'CHIDI - AI Business Assistant',
+  description: 'Conversational AI business assistant for small businesses to manage customer interactions across social media platforms',
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="min-h-screen bg-background-light font-sans antialiased">
+      <body className="min-h-screen bg-background font-sans antialiased">
         <main>{children}</main>
       </body>
     </html>
