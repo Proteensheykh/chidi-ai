@@ -14,12 +14,7 @@ import psycopg2.extras
 import os
 import sys
 
-# Add the shared directory to the Python path
-shared_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..', 'shared'))
-if shared_path not in sys.path:
-    sys.path.insert(0, shared_path)
-
-from auth.dependencies import get_current_user, require_user_id
+from shared.auth.dependencies import get_current_user, require_user_id
 
 # Configure logging
 logger = logging.getLogger(__name__)

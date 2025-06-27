@@ -2,3 +2,5 @@
 poetry run python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 
 
+Rule
+Always update model definitions in models.py before updating database schema with alembic

@@ -5,21 +5,44 @@ description = "Chidi backend services and shared components"
 authors = ["Mo Sheriff <mailsheriff.mo@gmail.com>"]
 readme = "README.md"
 
+# Shared/common dependencies used across services
 [tool.poetry.dependencies]
 python = "^3.11"
+pydantic = "^2.5.0"
+python-dotenv = "^1.0.0"
+
+# Database related dependencies (shared)
+[tool.poetry.group.database.dependencies]
 sqlalchemy = "^2.0.0"
 alembic = "^1.12.0"
-psycopg2-binary = "^2.9.9"
 asyncpg = "^0.28.0"
-fastapi = "^0.104.0"
-pydantic = "^2.5.0"
 
+# API Gateway service specific dependencies
+[tool.poetry.group.api-gateway.dependencies]
+fastapi = "^0.104.0"
+uvicorn = {extras = ["standard"], version = "^0.30.1"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+python-multipart = "^0.0.9"
+redis = "^5.0.1"
+
+# Auth related dependencies (shared)
+[tool.poetry.group.auth.dependencies]
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+httpx = "^0.27.0"
+PyJWT = "^2.8.0"
+cryptography = "^42.0.0"
+
+# Development dependencies
 [tool.poetry.group.dev.dependencies]
 black = "^23.10.0"
 isort = "^5.12.0"
 mypy = "^1.6.1"
 pytest = "^7.4.3"
 pytest-asyncio = "^0.21.1"
+
+# Note: psycopg2-binary is installed directly in the Dockerfile
+# to avoid poetry.lock inconsistencies
 
 [build-system]
 requires = ["poetry-core"]

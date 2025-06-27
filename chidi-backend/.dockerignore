@@ -4,9 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-.venv/
-venv/
-ENV/
 env/
 build/
 develop-eggs/
@@ -19,28 +16,37 @@ lib64/
 parts/
 sdist/
 var/
-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
-# IDE
+# Git
+.git
+.gitignore
+
+# Logs
+logs/
+*.log
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE files
 .idea/
 .vscode/
 *.swp
 *.swo
-.DS_Store
 
-# Project specific
-.env
-.env.*
-!.env.example
+# Testing
 .coverage
 htmlcov/
 .pytest_cache/
-.mypy_cache/
 
 # Docker
 .dockerignore
-Dockerfile
-docker-compose.yml

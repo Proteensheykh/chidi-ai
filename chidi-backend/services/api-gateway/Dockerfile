@@ -20,15 +20,24 @@ RUN apt-get update \
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-# Copy pyproject.toml and poetry.lock
-COPY ./pyproject.toml poetry.lock* ./
+# Copy pyproject.toml and poetry.lock from backend root
+COPY pyproject.toml poetry.lock* ./
 
-# Install dependencies
+# Install dependencies with required groups
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-root
+    && poetry install --without dev --with api-gateway,auth,database
 
-# Copy application code
-COPY ./app ./app
+# Install psycopg2-binary for PostgreSQL support
+RUN pip install psycopg2-binary
+
+# Copy shared modules (critical for imports)
+COPY shared/ ./shared/
+
+# Copy service-specific application code
+COPY services/api-gateway/app ./app
+
+# Set Python path to include current directory for shared imports
+ENV PYTHONPATH=/app
 
 # Command to run the application
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
