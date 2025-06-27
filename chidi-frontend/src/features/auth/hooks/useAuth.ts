@@ -17,6 +17,39 @@ interface AuthActions {
   clearError: () => void
 }
 
+// Helper function to initialize user context in backend
+const initializeUserContext = async (session: Session | null) => {
+  if (!session?.access_token) {
+    console.error('No access token found in session')
+    return
+  }
+
+  try {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'
+
+    console.log('Initializing user context for user:', session.user?.id)
+    console.log('******Access token:', session.access_token)
+    
+    const response = await fetch(`${backendUrl}/users/context`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      console.error('Failed to initialize user context:', response.status, response.statusText)
+      return
+    }
+
+    const result = await response.json()
+    console.log('User context initialized:', result.created ? 'created' : 'retrieved')
+  } catch (error) {
+    console.error('Error initializing user context:', error)
+  }
+}
+
 export function useAuth(): AuthState & AuthActions {
   const [state, setState] = useState<AuthState>({
     user: null,
@@ -37,6 +70,11 @@ export function useAuth(): AuthState & AuthActions {
         loading: false,
         error: error?.message ?? null,
       }))
+
+      // Initialize user context if session exists
+      if (session) {
+        await initializeUserContext(session)
+      }
     }
 
     getInitialSession()
@@ -51,6 +89,11 @@ export function useAuth(): AuthState & AuthActions {
           loading: false,
           error: null,
         }))
+
+        // Initialize user context on sign in
+        if (event === 'SIGNED_IN' && session) {
+          await initializeUserContext(session)
+        }
       }
     )
 

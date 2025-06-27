@@ -21,6 +21,7 @@ class UserContext(Base):
     user_id = Column(String, nullable=False, unique=True, index=True)
     business_data = Column(JSON, nullable=False, default=dict)
     onboarding_status = Column(String, nullable=False, default="pending")
+    settings = Column(JSON, nullable=False, default=dict)
     created_at = Column(DateTime, nullable=False, default=datetime.now(timezone.utc))
     updated_at = Column(DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 

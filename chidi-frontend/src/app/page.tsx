@@ -11,19 +11,19 @@ export default function HomePage() {
   const router = useRouter()
 
   const handleGetStarted = () => {
-    router.push('/signup')
+    router.push('/auth/signup')
   }
 
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Redirect to signup to encourage registration
-    router.push('/signup')
+    router.push('/auth/signup')
   }
 
   const handleSuggestionClick = (suggestion: string) => {
     setChatInput(suggestion)
     // Redirect to signup to encourage registration
-    router.push('/signup')
+    router.push('/auth/signup')
   }
 
   const chatSuggestions = [
